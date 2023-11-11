@@ -125,16 +125,18 @@ class Build : NukeBuild
                 .SetTargetDirectory(CoverageReportDirectory)
                 .SetFramework("net7.0"));
         });
-    
+
+    [Parameter] string DockerUsername;
     [Parameter] string DockerAccessToken;
 
     string DockerDotnetSdkPlaywrightImageName => $"sandwhichstack/dotnet/sdk-playwright:8.0-{GitVersion.SemVer}";
 
     Target DockerLogin => _ => _
+        .Requires(() => DockerUsername)
         .Requires(() => DockerAccessToken)
         .Executes(() => {
             DockerTasks.DockerLogin(c => c
-                .SetUsername(DockerAccessToken)
+                .SetUsername(DockerUsername)
                 .SetPassword(DockerAccessToken));
         });
     
@@ -152,6 +154,7 @@ class Build : NukeBuild
 
     Target PushDockerDotnetSdkPlaywright => _ => _
         .DependsOn(DockerLogin)
+        .After(BuildDockerDotnetSdkPlaywright)
         .Executes(() =>
         {
             DockerTasks.DockerPush(c => c

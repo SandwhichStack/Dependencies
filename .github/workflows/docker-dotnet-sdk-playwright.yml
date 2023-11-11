@@ -21,17 +21,7 @@ jobs:
         with:
           fetch-depth: "0"
       - name: Build
-        run: ./build.sh --target BuildDockerDotnetSdkPlaywright
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: "0"
-      - name: PushDockerDotnetSdkPlaywright
-        run: ./build.sh --target PushDockerDotnetSdkPlaywright
+        run: ./build.sh --target BuildDockerDotnetSdkPlaywright PushDockerDotnetSdkPlaywright
         env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
