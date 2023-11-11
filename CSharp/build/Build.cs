@@ -126,18 +126,16 @@ class Build : NukeBuild
                 .SetFramework("net7.0"));
         });
     
-    [Parameter] string DockerUsername;
-    [Parameter] string DockerPassword;
+    [Parameter] string DockerAccessToken;
 
     string DockerDotnetSdkPlaywrightImageName => $"sandwhichstack/dotnet/sdk-playwright:8.0-{GitVersion.SemVer}";
 
     Target DockerLogin => _ => _
-        .Requires(() => DockerUsername)
-        .Requires(() => DockerPassword)
+        .Requires(() => DockerAccessToken)
         .Executes(() => {
             DockerTasks.DockerLogin(c => c
-                .SetUsername(DockerUsername)
-                .SetPassword(DockerPassword));
+                .SetUsername(DockerAccessToken)
+                .SetPassword(DockerAccessToken));
         });
     
     Target BuildDockerDotnetSdkPlaywright => _ => _
@@ -153,7 +151,7 @@ class Build : NukeBuild
         });
 
     Target PushDockerDotnetSdkPlaywright => _ => _
-        .Requires(() => DockerLogin)
+        .DependsOn(DockerLogin)
         .Executes(() =>
         {
             DockerTasks.DockerPush(c => c
