@@ -126,6 +126,30 @@ class Build : NukeBuild
                 .SetFramework("net7.0"));
         });
     
+    [Parameter] string DockerUsername;
+    [Parameter] string DockerPassword;
+
+    string DockerDotnetSdkPlaywrightImageName => $"sandwhichstack/dotnet/sdk-playwright:8.0-{GitVersion.SemVer}";
+    
+    Target BuildDockerDotnetSdkPlaywright => _ => _
+        .Executes(() =>
+        {
+            DockerTasks.DockerBuild(c => c
+                .SetPath(RootDirectory / "Docker" / "dotnet" / "sdk-playwright")
+                .SetTag(DockerDotnetSdkPlaywrightImageName));
+        });
+
+    Target PushDockerDotnetSdkPlaywright => _ => _
+        .Requires(() => DockerUsername)
+        .Requires(() => DockerPassword)
+        .Executes(() =>
+        {
+            DockerTasks.DockerLogin(c => c
+                .SetUsername(DockerUsername)
+                .SetPassword(DockerPassword));
+            DockerTasks.DockerPush(c => c
+                .SetName(DockerDotnetSdkPlaywrightImageName));
+        });
     
     Target Pack => _ => _
         .DependsOn(Compile)

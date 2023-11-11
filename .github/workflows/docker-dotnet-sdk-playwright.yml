@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    paths:
+    - 'Docker/dotnet/sdk-playwright/**'
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+  GIT_DEPTH: "0" # Needed for GitVersion
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:8.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: ./build.sh --target BuildDockerDotnetSdkPlaywright
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:8.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: PushDockerDotnetSdkPlaywright
+        run: ./build.sh --target PushDockerDotnetSdkPlaywright
