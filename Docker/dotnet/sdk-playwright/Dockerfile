@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0
 
+RUN dotnet tool install --global PowerShell
 RUN apt-get update & apt-get install -y \
-        pwsh \
         libgobject-2.0-0 \
         libglib2.0-0 \
         libnss3 \
