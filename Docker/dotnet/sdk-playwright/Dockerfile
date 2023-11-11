@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0
 
 RUN dotnet tool install --global PowerShell
+ENV PATH="$PATH:/root/.dotnet/tools"
 RUN apt-get update & apt-get install -y \
         libgobject-2.0-0 \
         libglib2.0-0 \
