@@ -13,5 +13,5 @@ RUN apt-get update & apt-get install -y \
         rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
-COPY DownloadPlaywright/bin/Debug/net8.0 ./playwright
+COPY DownloadPlaywright/bin/Debug/net7.0 ./playwright
 RUN pwsh ./playwright/playwright.ps1 install

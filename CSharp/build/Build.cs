@@ -130,6 +130,15 @@ class Build : NukeBuild
     [Parameter] string DockerPassword;
 
     string DockerDotnetSdkPlaywrightImageName => $"sandwhichstack/dotnet/sdk-playwright:8.0-{GitVersion.SemVer}";
+
+    Target DockerLogin => _ => _
+        .Requires(() => DockerUsername)
+        .Requires(() => DockerPassword)
+        .Executes(() => {
+            DockerTasks.DockerLogin(c => c
+                .SetUsername(DockerUsername)
+                .SetPassword(DockerPassword));
+        });
     
     Target BuildDockerDotnetSdkPlaywright => _ => _
         .Executes(() =>
@@ -144,13 +153,9 @@ class Build : NukeBuild
         });
 
     Target PushDockerDotnetSdkPlaywright => _ => _
-        .Requires(() => DockerUsername)
-        .Requires(() => DockerPassword)
+        .Requires(() => DockerLogin)
         .Executes(() =>
         {
-            DockerTasks.DockerLogin(c => c
-                .SetUsername(DockerUsername)
-                .SetPassword(DockerPassword));
             DockerTasks.DockerPush(c => c
                 .SetName(DockerDotnetSdkPlaywrightImageName));
         });
