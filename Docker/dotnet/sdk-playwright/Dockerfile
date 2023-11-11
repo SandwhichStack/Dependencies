@@ -1,9 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0
 
-WORKDIR /build
-COPY playwright.ps1 playwright.ps1
-RUN pwsh playwright.ps1 install
-RUN apt-get update & apt-get installk -y \
+RUN apt-get update & apt-get install -y \
+        pwsh \
         libgobject-2.0-0 \
         libglib2.0-0 \
         libnss3 \
@@ -14,3 +12,7 @@ RUN apt-get update & apt-get installk -y \
         libatk-bridge2.0-0 \
         libcups2 & \
         rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+COPY playwright.ps1 playwright.ps1
+RUN pwsh playwright.ps1 install
