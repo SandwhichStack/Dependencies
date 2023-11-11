@@ -4,6 +4,7 @@ on:
   push:
     paths:
     - 'Docker/dotnet/sdk-playwright/**'
+    - 'CSharp/build/**'
 
 env:
   DOTNET_CLI_TELEMETRY_OPTOUT: "true"
@@ -11,6 +12,18 @@ env:
   GIT_DEPTH: "0" # Needed for GitVersion
 
 jobs:
+  version:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:8.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Test
+        run: id
+      - name: Version
+        run: ./build.sh --target Version
+
   build:
     runs-on: ubuntu-latest
     container:
