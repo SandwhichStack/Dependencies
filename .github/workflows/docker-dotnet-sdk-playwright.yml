@@ -33,3 +33,5 @@ jobs:
           fetch-depth: "0"
       - name: PushDockerDotnetSdkPlaywright
         run: ./build.sh --target PushDockerDotnetSdkPlaywright
+        env:
+          DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
