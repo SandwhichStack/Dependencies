@@ -25,6 +25,7 @@ jobs:
         run: ./build.sh --target Version
 
   build:
+    needs: version
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/dotnet/sdk:8.0
