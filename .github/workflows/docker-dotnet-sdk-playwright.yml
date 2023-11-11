@@ -5,6 +5,7 @@ on:
     paths:
     - 'Docker/dotnet/sdk-playwright/**'
     - 'CSharp/build/**'
+    - '.github/workflows/docker-dotnet-sdk-playwright.yml'
 
 env:
   DOTNET_CLI_TELEMETRY_OPTOUT: "true"
