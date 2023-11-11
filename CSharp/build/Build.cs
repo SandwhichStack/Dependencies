@@ -134,6 +134,10 @@ class Build : NukeBuild
     Target BuildDockerDotnetSdkPlaywright => _ => _
         .Executes(() =>
         {
+            DotNetTasks.DotNetBuild(c => c
+                .SetConfiguration("Debug")
+                .SetProcessWorkingDirectory(RootDirectory / "Docker" / "dotnet" / "sdk-playwright" /
+                                            "DownloadPlaywright"));
             DockerTasks.DockerBuild(c => c
                 .SetPath(RootDirectory / "Docker" / "dotnet" / "sdk-playwright")
                 .SetTag(DockerDotnetSdkPlaywrightImageName));
