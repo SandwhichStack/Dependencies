@@ -1,4 +1,4 @@
-name: docker-dotnet-sdk-playwright
+name: csharp-extensions-configuration-infisical
 
 on:
   push:

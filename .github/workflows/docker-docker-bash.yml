@@ -1,4 +1,4 @@
-name: docker-dotnet-sdk-playwright
+name: docker-docker-bash
 
 on:
   push:
