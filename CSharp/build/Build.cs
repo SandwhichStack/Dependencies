@@ -160,7 +160,26 @@ class Build : NukeBuild
             DockerTasks.DockerPush(c => c
                 .SetName(DockerDotnetSdkPlaywrightImageName));
         });
-    
+
+    string DockerDockerBashImageName => $"sandwhichstack/docker-bash:24.0.7-cli-alpine3.18-{GitVersion.SemVer}";
+
+    Target BuildDockerDockerBash => _ => _
+        .Executes(() =>
+        {
+            DockerTasks.DockerBuild(c => c
+                .SetPath(RootDirectory / "Docker" / "docker" / "bash")
+                .SetTag(DockerDockerBashImageName));
+        });
+
+    Target PushDockerDockerBash => _ => _
+        .DependsOn(DockerLogin)
+        .After(BuildDockerDockerBash)
+        .Executes(() =>
+        {
+            DockerTasks.DockerPush(c => c
+                .SetName(DockerDockerBashImageName));
+        });
+
     Target PackExtensionsConfigurationInfisical => _ => _
         .DependsOn(Compile)
         .Executes(() =>

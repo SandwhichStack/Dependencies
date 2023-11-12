@@ -22,6 +22,9 @@
     <None Update="..\..\.github\workflows\csharp-extensions-configuration-infisical.yml">
       <Link>ci\csharp-extensions-configuration-infisical.yml</Link>
     </None>
+    <None Update="..\..\.github\workflows\docker-docker-bash.yml">
+      <Link>ci\docker-docker-bash.yml</Link>
+    </None>
   </ItemGroup>
 
 </Project>
