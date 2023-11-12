@@ -3,7 +3,7 @@ name: docker-dotnet-sdk-playwright
 on:
   push:
     paths:
-    - 'Docker/dotnet/sdk-playwright/**'
+    - 'Docker/dotnet-sdk-playwright/**'
     - 'CSharp/build/**'
     - '.github/workflows/docker-dotnet-sdk-playwright.yml'
     - 'GitVersion.yml'
