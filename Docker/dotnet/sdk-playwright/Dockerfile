@@ -1,18 +1,7 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0
-
-RUN apt-get update & apt-get install -y \
-        libgobject-2.0-0 \
-        libglib2.0-0 \
-        libnss3 \
-        libnssutil3 \
-        libsmime3 \
-        libnspr4 \
-        libatk1.0-0 \
-        libatk-bridge2.0-0 \
-        libcups2 & \
-        rm -rf /var/lib/apt/lists/*
+FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy
 
 WORKDIR /build
 COPY DownloadPlaywright/bin/Debug/net7.0 ./playwright
 RUN pwsh ./playwright/playwright.ps1 install
+RUN playwright install-deps
 RUN rm -rf ./playwright
