@@ -25,6 +25,9 @@
     <None Update="..\..\.github\workflows\docker-docker-bash.yml">
       <Link>ci\docker-docker-bash.yml</Link>
     </None>
+    <None Update="..\..\.github\workflows\docker-dotnet-sdk-kaniko.yml">
+      <Link>ci\docker-dotnet-sdk-kaniko.yml</Link>
+    </None>
   </ItemGroup>
 
 </Project>

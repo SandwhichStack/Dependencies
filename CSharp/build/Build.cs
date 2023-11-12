@@ -180,6 +180,25 @@ class Build : NukeBuild
                 .SetName(DockerDockerBashImageName));
         });
 
+    string DockerDotnetSdkKanikoImageName => $"sandwhichstack/dotnet-sdk-kaniko:v1.18.0-debug-{GitVersion.SemVer}";
+
+    Target BuildDockerDotnetSdkKaniko => _ => _
+        .Executes(() =>
+        {
+            DockerTasks.DockerBuild(c => c
+                .SetPath(RootDirectory / "Docker" / "dotnet-sdk-kaniko")
+                .SetTag(DockerDotnetSdkKanikoImageName));
+        });
+
+    Target PushDockerDotnetSdkKaniko => _ => _
+        .DependsOn(DockerLogin)
+        .After(BuildDockerDockerBash)
+        .Executes(() =>
+        {
+            DockerTasks.DockerPush(c => c
+                .SetName(DockerDotnetSdkKanikoImageName));
+        });
+
     Target PackExtensionsConfigurationInfisical => _ => _
         .DependsOn(Compile)
         .Executes(() =>
