@@ -145,7 +145,7 @@ class Build : NukeBuild
         {
             DotNetTasks.DotNetBuild(c => c
                 .SetConfiguration("Debug")
-                .SetProcessWorkingDirectory(RootDirectory / "Docker" / "dotnet" / "sdk-playwright" /
+                .SetProcessWorkingDirectory(RootDirectory / "Docker" / "dotnet-sdk-playwright" /
                                             "DownloadPlaywright"));
             DockerTasks.DockerBuild(c => c
                 .SetPath(RootDirectory / "Docker" / "dotnet-sdk-playwright")
@@ -167,7 +167,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DockerTasks.DockerBuild(c => c
-                .SetPath(RootDirectory / "Docker" / "docker" / "bash")
+                .SetPath(RootDirectory / "Docker" / "docker-bash")
                 .SetTag(DockerDockerBashImageName));
         });
 

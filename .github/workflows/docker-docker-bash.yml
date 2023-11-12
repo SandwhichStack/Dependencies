@@ -3,7 +3,7 @@ name: docker-docker-bash
 on:
   push:
     paths:
-    - 'Docker/docker/bash/**'
+    - 'Docker/docker-bash/**'
     - 'CSharp/build/**'
     - '.github/workflows/docker-docker-bash.yml'
     - 'GitVersion.yml'
