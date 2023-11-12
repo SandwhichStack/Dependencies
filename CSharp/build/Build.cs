@@ -161,15 +161,14 @@ class Build : NukeBuild
                 .SetName(DockerDotnetSdkPlaywrightImageName));
         });
     
-    Target Pack => _ => _
+    Target PackExtensionsConfigurationInfisical => _ => _
         .DependsOn(Compile)
-        //.Requires(() => Configuration == Configuration.Release)
         .Executes(() =>
         {
             DotNetPack(s => s
                 .EnableNoRestore()
                 .EnableNoBuild()
-                .SetProject(Solution)
+                .SetProject(Solution.GetProject("SandwhichStack.Extensions.Configuration.Infisical"))
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(ArtifactsDirectory)
                 .SetVersion(GitVersion.SemVer)
@@ -178,9 +177,8 @@ class Build : NukeBuild
             );
         });
 
-    Target Push => _ => _
-        .DependsOn(Pack)
-        .Consumes(Pack)
+    Target NugetPush => _ => _
+        .After(PackExtensionsConfigurationInfisical)
         .Requires(() => NugetApiKey)
         .Requires(() => Configuration == Configuration.Release)
         .Executes(() =>
