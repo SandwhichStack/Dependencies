@@ -18,7 +18,7 @@
           "type": "boolean",
           "description": "Indicates to continue a previously failed build attempt"
         },
-        "DockerPassword": {
+        "DockerAccessToken": {
           "type": "string"
         },
         "DockerUsername": {
@@ -86,13 +86,14 @@
           "items": {
             "type": "string",
             "enum": [
+              "BuildDockerDotnetSdkPlaywright",
               "Clean",
               "Compile",
               "Coverage",
-              "DockerBuild",
-              "DockerPush",
-              "Pack",
-              "Push",
+              "DockerLogin",
+              "NugetPush",
+              "PackExtensionsConfigurationInfisical",
+              "PushDockerDotnetSdkPlaywright",
               "Restore",
               "Test",
               "Version"
@@ -109,13 +110,14 @@
           "items": {
             "type": "string",
             "enum": [
+              "BuildDockerDotnetSdkPlaywright",
               "Clean",
               "Compile",
               "Coverage",
-              "DockerBuild",
-              "DockerPush",
-              "Pack",
-              "Push",
+              "DockerLogin",
+              "NugetPush",
+              "PackExtensionsConfigurationInfisical",
+              "PushDockerDotnetSdkPlaywright",
               "Restore",
               "Test",
               "Version"
