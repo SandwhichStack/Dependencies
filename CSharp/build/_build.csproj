@@ -18,4 +18,10 @@
     <PackageDownload Include="dotnet-reportgenerator-globaltool" Version="[5.1.26]" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="..\..\.github\workflows\csharp-extensions-configuration-infisical.yml">
+      <Link>ci\csharp-extensions-configuration-infisical.yml</Link>
+    </None>
+  </ItemGroup>
+
 </Project>
