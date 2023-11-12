@@ -24,9 +24,9 @@ jobs:
         with:
           fetch-depth: "0"
       - name: Build
-        run:
-        - dotnet --version
-        - dotnet --list-sdks
-        - ./build.sh --target PackExtensionsConfigurationInfisical NugetPush
+        run: |
+          dotnet --version
+          dotnet --list-sdks
+          ./build.sh --target PackExtensionsConfigurationInfisical NugetPush
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
