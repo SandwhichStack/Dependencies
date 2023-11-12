@@ -129,7 +129,7 @@ class Build : NukeBuild
     [Parameter] string DockerUsername;
     [Parameter] string DockerAccessToken;
 
-    string DockerDotnetSdkPlaywrightImageName => $"sandwhichstack/dotnet/sdk-playwright:8.0-{GitVersion.SemVer}";
+    string DockerDotnetSdkPlaywrightImageName => $"sandwhichstack/dotnet-sdk-playwright:8.0-{GitVersion.SemVer}";
 
     Target DockerLogin => _ => _
         .Requires(() => DockerUsername)
