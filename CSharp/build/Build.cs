@@ -187,7 +187,7 @@ class Build : NukeBuild
         {
             DockerTasks.DockerBuild(c => c
                 .SetPath(RootDirectory / "Docker" / "html-placeholder")
-                .SetTag(DockerDockerBashImageName));
+                .SetTag(DockerHtmlPlaceholderImageName));
         });
 
     Target PushDockerHtmlPlaceholder => _ => _
