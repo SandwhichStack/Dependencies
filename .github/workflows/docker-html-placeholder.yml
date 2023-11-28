@@ -1,0 +1,28 @@
+name: docker-html-placeholder
+
+on:
+  push:
+    paths:
+    - 'Docker/html-placeholder/**'
+    - 'CSharp/build/**'
+    - '.github/workflows/docker-html-placeholder.yml'
+    - 'GitVersion.yml'
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+  GIT_DEPTH: "0" # Needed for GitVersion
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+      - name: Build
+        run: ./build.sh --target BuildDockerHtmlPlaceholder PushDockerHtmlPlaceholder
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
