@@ -192,7 +192,7 @@ class Build : NukeBuild
 
     Target PushDockerHtmlPlaceholder => _ => _
         .DependsOn(DockerLogin)
-        .After(BuildDockerDockerBash)
+        .After(BuildDockerHtmlPlaceholder)
         .Executes(() =>
         {
             DockerTasks.DockerPush(c => c
