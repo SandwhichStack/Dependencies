@@ -1,8 +1,7 @@
 FROM gcr.io/kaniko-project/executor:debug AS kaniko
-FROM alpine:3.14.2
+FROM alpine:3.18.5
 
-RUN apk --update add jq vault libcap
-RUN setcap cap_ipc_lock= /usr/sbin/vault
+RUN apk --update add dotnet8-sdk
 
 COPY --from=kaniko /kaniko/ /kaniko/
 
