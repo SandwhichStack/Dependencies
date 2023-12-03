@@ -126,20 +126,8 @@ class Build : NukeBuild
                 .SetFramework("net7.0"));
         });
 
-    [Parameter] string DockerUsername;
-    [Parameter] string DockerAccessToken;
+    string DockerDotnetSdkPlaywrightImageName => $"ghcr.io/sandwichstack/dotnet-sdk-playwright:8.0-{GitVersion.SemVer}";
 
-    string DockerDotnetSdkPlaywrightImageName => $"sandwhichstack/dotnet-sdk-playwright:8.0-{GitVersion.SemVer}";
-
-    Target DockerLogin => _ => _
-        .Requires(() => DockerUsername)
-        .Requires(() => DockerAccessToken)
-        .Executes(() => {
-            DockerTasks.DockerLogin(c => c
-                .SetUsername(DockerUsername)
-                .SetPassword(DockerAccessToken));
-        });
-    
     Target BuildDockerDotnetSdkPlaywright => _ => _
         .Executes(() =>
         {
@@ -153,7 +141,6 @@ class Build : NukeBuild
         });
 
     Target PushDockerDotnetSdkPlaywright => _ => _
-        .DependsOn(DockerLogin)
         .After(BuildDockerDotnetSdkPlaywright)
         .Executes(() =>
         {
@@ -161,7 +148,7 @@ class Build : NukeBuild
                 .SetName(DockerDotnetSdkPlaywrightImageName));
         });
 
-    string DockerDockerBashImageName => $"sandwhichstack/docker-bash:24.0.7-cli-alpine3.18-{GitVersion.SemVer}";
+    string DockerDockerBashImageName => $"ghcr.io/sandwichstack/docker-bash:24.0.7-cli-alpine3.18-{GitVersion.SemVer}";
 
     Target BuildDockerDockerBash => _ => _
         .Executes(() =>
@@ -172,7 +159,6 @@ class Build : NukeBuild
         });
 
     Target PushDockerDockerBash => _ => _
-        .DependsOn(DockerLogin)
         .After(BuildDockerDockerBash)
         .Executes(() =>
         {
@@ -180,7 +166,7 @@ class Build : NukeBuild
                 .SetName(DockerDockerBashImageName));
         });
 
-    string DockerHtmlPlaceholderImageName => $"sandwhichstack/html-placeholder:{GitVersion.SemVer}";
+    string DockerHtmlPlaceholderImageName => $"ghcr.io/sandwichstack/html-placeholder:{GitVersion.SemVer}";
 
     Target BuildDockerHtmlPlaceholder => _ => _
         .Executes(() =>
@@ -191,7 +177,6 @@ class Build : NukeBuild
         });
 
     Target PushDockerHtmlPlaceholder => _ => _
-        .DependsOn(DockerLogin)
         .After(BuildDockerHtmlPlaceholder)
         .Executes(() =>
         {
@@ -199,7 +184,7 @@ class Build : NukeBuild
                 .SetName(DockerHtmlPlaceholderImageName));
         });
 
-    string DockerDotnetSdkKanikoImageName => $"sandwhichstack/dotnet-sdk-kaniko:v1.18.0-debug-{GitVersion.SemVer}";
+    string DockerDotnetSdkKanikoImageName => $"ghcr.io/sandwichstack/dotnet-sdk-kaniko:v1.18.0-debug-{GitVersion.SemVer}";
 
     Target BuildDockerDotnetSdkKaniko => _ => _
         .Executes(() =>
