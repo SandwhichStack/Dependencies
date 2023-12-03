@@ -195,7 +195,6 @@ class Build : NukeBuild
         });
 
     Target PushDockerDotnetSdkKaniko => _ => _
-        .DependsOn(DockerLogin)
         .After(BuildDockerDotnetSdkKaniko)
         .Executes(() =>
         {
